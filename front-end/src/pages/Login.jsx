@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import axios from 'axios';
 import ELEMENTS from '../utils/Html.elements';
 
 function Login() {
+  const history = useHistory();
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,6 +28,21 @@ function Login() {
       .length < minimumPassword);
   };
 
+  const handleClick = () => {
+    console.log(email, password);
+    axios.post('http://localhost:3001/login', {
+      email,
+      password,
+    })
+      .then((response) => {
+        console.log(response);
+        history.pushState('/coffee');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div>
       <form>
@@ -43,7 +61,7 @@ function Login() {
         <label htmlFor="input-password">
           Senha
           <input
-            type="email"
+            type="password"
             data-testid={ `${ELEMENTS.ROUTE}__${ELEMENTS.INPUT_PASSWORD}` }
             placeholder="Digite sua senha"
             id="input-password"
@@ -55,6 +73,7 @@ function Login() {
           type="button"
           data-testid="common_login__button-login"
           disabled={ isButtonDisabled }
+          onClick={ handleClick }
         >
           LOGIN
         </button>

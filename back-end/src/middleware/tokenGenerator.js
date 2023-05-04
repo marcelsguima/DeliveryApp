@@ -4,7 +4,6 @@ const secret = process.env.JWT_SECRET || 'valor padrão';
 
 const JWT_CONFIG = {
     algorithm: 'HS256',
-    // expiresIn: '7d',  Won't work.
 };
 
 const generateToken = (payload) => {
