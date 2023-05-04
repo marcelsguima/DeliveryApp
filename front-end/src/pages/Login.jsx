@@ -34,7 +34,10 @@ function Login() {
       password,
     })
       .then((response) => {
-        console.log(response);
+        const { email, role, name } = response.data;
+      const user = { email, role, name };
+      localStorage.setItem('user', JSON.stringify(response.data));
+        console.log(response.data);
         history.push('/coffee');
       })
       .catch((error) => {
