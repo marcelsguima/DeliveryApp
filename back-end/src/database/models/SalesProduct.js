@@ -2,18 +2,18 @@ const { Sequelize, DataTypes } = require('sequelize');
 
 const sequelize = new Sequelize('database_name', 'username', 'password', {
   host: 'localhost',
-  dialect: 'mysql'
+  dialect: 'mysql',
 });
 
 const SalesProduct = sequelize.define('SalesProduct', {
-  quantity: DataTypes.INTEGER
+  quantity: DataTypes.INTEGER,
 }, {
   indexes: [
     {
       unique: true,
-      fields: ['sale_id', 'product_id']
-    }
-  ]
+      fields: ['sale_id', 'product_id'],
+    },
+  ],
 });
 
 module.exports = SalesProduct;
