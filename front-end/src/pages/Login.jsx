@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import ELEMENTS from '../utils/Html.elements';
 
@@ -29,17 +29,16 @@ function Login() {
   };
 
   const handleClick = () => {
-    console.log(email, password);
     axios.post('http://localhost:3001/login', {
       email,
       password,
     })
       .then((response) => {
         console.log(response);
-        history.pushState('/coffee');
+        history.push('/coffee');
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response);
       });
   };
 
