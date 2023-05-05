@@ -15,11 +15,15 @@
   font-family: Montserrat , sans-serif;
   font-size: 3em;
   font-weight: 900;
+  position: absolute;
+  margin-bottom: 200px;
 }
 
 .rocksGlass {
   animation: shake 1s infinite ease;
-  max-height: 80vh;
+  max-height: 15vh;
+  margin-bottom: 400px;
+  position: absolute;
 }
 
 @keyframes shake {

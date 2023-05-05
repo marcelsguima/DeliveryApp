@@ -1,12 +1,20 @@
 import React from 'react';
 import './App.css';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import Login from './pages/Login';
+import RegisterPage from './pages/RegisterPage';
 import CustomerProducts from './pages/CustomerProducts';
 
 function App() {
   return (
-    <div className="App">
-      <CustomerProducts />
-    </div>
+    <Switch>
+      <Route exact path="/">
+        <Redirect to="/login" />
+      </Route>
+      <Route path="/login" component={ Login } />
+      <Route path="/register" component={ RegisterPage } />
+      <Route path="/customer/products" component={ CustomerProducts } />
+    </Switch>
   );
 }
 
