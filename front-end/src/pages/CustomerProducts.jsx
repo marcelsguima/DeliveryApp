@@ -36,7 +36,8 @@ export default function CustomerProducts() {
       {products.map((e) => (
         <div key={ e.id }>
           <span data-testid={ `${CUSTOMER}__element-card-price${e.id}` }>
-            R$ {e.price}
+            R$
+            {e.price}
           </span>
           <img
             src={ e.url_image }

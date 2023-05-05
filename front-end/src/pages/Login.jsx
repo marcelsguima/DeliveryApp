@@ -22,9 +22,9 @@ function Login() {
       .length < minimumPassword);
   };
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-    setIsButtonDisabled(!validateEmail(email) || event.target.value
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    setIsButtonDisabled(!validateEmail(email) || e.target.value
       .length < minimumPassword);
   };
 
