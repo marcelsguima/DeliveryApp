@@ -26,7 +26,7 @@ export default function RegisterPage() {
   }
 
   const emailRegex = /\S+@\S+\.\S+/;
-  const minPasswordLength = 5;
+  const minPasswordLength = 6;
   const minNameLength = 12;
 
   const isPasswordValid = register.password.length >= minPasswordLength;

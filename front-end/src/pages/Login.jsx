@@ -82,6 +82,7 @@ function Login() {
         <button
           type="button"
           data-testid={ `${ELEMENTS.ROUTE}__${ELEMENTS.BUTTON_REGISTER}` }
+          onClick={ () => history.push('/register') }
         >
           Ainda não tenho conta
         </button>
