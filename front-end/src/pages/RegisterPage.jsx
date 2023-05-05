@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 export default function RegisterPage() {
   const [register, setRegister] = useState({
@@ -14,17 +15,6 @@ export default function RegisterPage() {
     const { name, value } = target;
     setRegister({ ...register, [name]: value });
   }
-
-  async function getButtonValid() {
-    const btn = await create(register);
-    if (btn === 'invalid Register') {
-      setError(true);
-    } else {
-      localStorage.setItem('user', JSON.stringify(btn.data));
-      history('/customer/products');
-    }
-  }
-
   const emailRegex = /\S+@\S+\.\S+/;
   const minPasswordLength = 6;
   const minNameLength = 12;
@@ -34,6 +24,21 @@ export default function RegisterPage() {
   const isNameValid = register.name.trim().length > minNameLength;
 
   const credentValid = (isPasswordValid && isEmailValid && isNameValid);
+
+  const handleClick = () => {
+    console.log(register);
+    axios.post('http://localhost:3001/register', {
+      register,
+    })
+      .then((response) => {
+        console.log(response.data);
+        history.push('/customer/products');
+      })
+      .catch((err) => {
+        console.log(err.response);
+        setError(true);
+      });
+  };
 
   return (
     <div className="register-page">
@@ -78,7 +83,7 @@ export default function RegisterPage() {
             disabled={ !credentValid }
             className="register-btn"
             data-testid="common_register__button-register"
-            onClick={ getButtonValid }
+            onClick={ handleClick }
           >
             Cadastrar
           </button>
