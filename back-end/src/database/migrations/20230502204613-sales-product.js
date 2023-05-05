@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('sales-products', {
@@ -9,8 +7,8 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'sales',
-          key: 'id'
-        }
+          key: 'id',
+        },
       },
       product_id: {
         primaryKey: true,
@@ -18,26 +16,26 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'products',
-          key: 'id'
-        }
+          key: 'id',
+        },
       },
       quantity: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('NOW()')
+        defaultValue: Sequelize.literal('NOW()'),
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('NOW()')
+        defaultValue: Sequelize.literal('NOW()'),
       },
     });
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('sales-products');
-  }
+  },
 };
