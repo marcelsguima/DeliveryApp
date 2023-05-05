@@ -8,16 +8,7 @@ const registerUserSchema = Joi.object({
   image: Joi.string(),
 });
 
-const registerPostSchema = Joi.object({
-  title: Joi.string().required().messages({
-    'string.empty': 'Some required fields are missing',
-  }),
-  content: Joi.string().required(),
-  categoryIds: Joi.array(),
-  userId: Joi.number().required(),
-});
 const secret = process.env.JWT_SECRET || 'valor padrão';
-const registerCategorySchema = Joi.object({ name: Joi.string().required() });
 
 const tokenValidation = (req, res, next) => {
   try {
@@ -33,9 +24,6 @@ const tokenValidation = (req, res, next) => {
   }
 };
 module.exports = { 
-    registerUserSchema,
-    registerCategorySchema,
-    tokenValidation,
-    registerPostSchema,
-
- }; 
+  registerUserSchema,
+  tokenValidation,
+}; 
