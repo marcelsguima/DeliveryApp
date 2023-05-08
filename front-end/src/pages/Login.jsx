@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
 import ELEMENTS from '../utils/Html.elements';
+import { requestLogin } from '../services/requests';
 
 function Login() {
   const history = useHistory();
@@ -28,22 +28,36 @@ function Login() {
       .length < minimumPassword);
   };
 
-  const handleClick = () => {
-    axios.post('http://localhost:3001/login', {
-      email,
-      password,
-    })
-      .then((response) => {
-        const { email, role, name } = response.data;
-        const user = { email, role, name };
-        localStorage.setItem('user', JSON.stringify(response.data));
-        console.log(response.data);
-        history.push('/customer/products');
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
+  const handleClick = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await requestLogin(
+        '/login',
+        { email, password },
+      );
+      console.log(response);
+      history.push('/customer/products');
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  // const handleClick = () => {
+  //   axios.post('http://localhost:3001/login', {
+  //     email,
+  //     password,
+  //   })
+  //     .then((response) => {
+  //       const { email, role, name } = response.data;
+  //       const user = { email, role, name };
+  //       localStorage.setItem('user', JSON.stringify(response.data));
+  //       console.log(response.data);
+  //       history.push('/customer/products');
+  //     })
+  //     .catch((error) => {
+  //       console.log(error.response);
+  //     });
+  // };
 
   return (
     <div>

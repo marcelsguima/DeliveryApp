@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import { requestRegister } from '../services/requests';
 
 export default function RegisterPage() {
   const [register, setRegister] = useState({
@@ -25,20 +25,40 @@ export default function RegisterPage() {
 
   const credentValid = (isPasswordValid && isEmailValid && isNameValid);
 
-  const handleClick = () => {
-    console.log(register);
-    axios.post('http://localhost:3001/register', {
-      register,
-    })
-      .then((response) => {
-        console.log(response.data);
-        history.push('/customer/products');
-      })
-      .catch((err) => {
-        console.log(err.response);
-        setError(true);
-      });
+  const handleClick = async (e) => {
+    e.preventDefault();
+
+    try {
+      const data = await requestRegister(
+        '/register',
+        {
+          email: register.email,
+          password: register.password,
+          name: register.name,
+          role: 'customer' },
+      );
+      console.log(data);
+      history.push('/customer/products');
+    } catch (err) {
+      setError(true);
+      changeAuthorized(true);
+    }
   };
+
+  // const handleClick = () => {
+  //   console.log(register);
+  //   axios.post('http://localhost:3001/register', {
+  //     register,
+  //   })
+  //     .then((response) => {
+  //       console.log(response.data);
+  //       history.push('/customer/products');
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.response);
+  //       setError(true);
+  //     });
+  // };
 
   return (
     <div className="register-page">
