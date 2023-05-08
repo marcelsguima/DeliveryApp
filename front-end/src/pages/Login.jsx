@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import ELEMENTS from '../utils/Html.elements';
@@ -33,17 +33,34 @@ function Login() {
       email,
       password,
     })
-      .then((response) => {
+    .then((response) => {
+        console.log(response.data, 'Número 3-');
         const { email, role, name } = response.data;
         const user = { email, role, name };
-        localStorage.setItem('user', JSON.stringify(response.data));
-        console.log(response.data);
-        history.push('/customer/products');
+        localStorage.setItem('user', JSON.stringify(user));
       })
       .catch((error) => {
-        console.log(error.response);
+        if (error.response) {
+          // Erro de servidor
+          console.log(error.response.data, 'Número 1-');
+          console.log(error.response.status, 'Número 2-');
+        } else if (error.request) {
+          // Erro de rede
+          console.log(error.request);
+        } else {
+          // Erro desconhecido
+          console.log('Erro', error.message);
+        }
       });
+    history.push('/customer/products');
   };
+  // useEffect(() => {
+  //   const user = localStorage.getItem('user');
+  //   console.log(user);
+  //   if (user) {
+  //     history.push('/customer/products');
+  //   }
+  // }, []);
 
   return (
     <div>
