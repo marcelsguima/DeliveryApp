@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import ELEMENTS from '../utils/Html.elements';
 import { requestLogin } from '../services/requests';
+import axios from 'axios';
 
 function Login() {
   const history = useHistory();
