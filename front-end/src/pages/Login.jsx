@@ -35,7 +35,6 @@ function Login() {
         '/login',
         { email, password },
       );
-      console.log(response);
       localStorage.setItem('user', JSON.stringify(response));
       history.push('/customer/products');
     } catch (error) {
