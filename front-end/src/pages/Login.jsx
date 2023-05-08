@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
 import ELEMENTS from '../utils/Html.elements';
+import { requestLogin } from '../services/requests';
 
 function Login() {
   const history = useHistory();
@@ -61,6 +61,23 @@ function Login() {
   //     history.push('/customer/products');
   //   }
   // }, []);
+
+  // const handleClick = () => {
+  //   axios.post('http://localhost:3001/login', {
+  //     email,
+  //     password,
+  //   })
+  //     .then((response) => {
+  //       const { email, role, name } = response.data;
+  //       const user = { email, role, name };
+  //       localStorage.setItem('user', JSON.stringify(response.data));
+  //       console.log(response.data);
+  //       history.push('/customer/products');
+  //     })
+  //     .catch((error) => {
+  //       console.log(error.response);
+  //     });
+  // };
 
   return (
     <div>
