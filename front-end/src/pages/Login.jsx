@@ -36,28 +36,12 @@ function Login() {
         { email, password },
       );
       console.log(response);
+      localStorage.setItem('user', JSON.stringify(response));
       history.push('/customer/products');
     } catch (error) {
       console.log(error);
     }
   };
-
-  // const handleClick = () => {
-  //   axios.post('http://localhost:3001/login', {
-  //     email,
-  //     password,
-  //   })
-  //     .then((response) => {
-  //       const { email, role, name } = response.data;
-  //       const user = { email, role, name };
-  //       localStorage.setItem('user', JSON.stringify(response.data));
-  //       console.log(response.data);
-  //       history.push('/customer/products');
-  //     })
-  //     .catch((error) => {
-  //       console.log(error.response);
-  //     });
-  // };
 
   return (
     <div>
