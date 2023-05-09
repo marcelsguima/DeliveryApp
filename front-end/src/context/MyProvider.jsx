@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import myContext from './MyContext';
 import { useHistory } from 'react-router-dom';
+import myContext from './MyContext';
 
 function MyProvider({ children }) {
   const [cartProducts, setCartProducts] = useState([]);
@@ -55,7 +55,7 @@ function MyProvider({ children }) {
   };
 
   const handleClickCart = () => {
-    history.push('customer/checkout')
+    history.push('customer/checkout');
   };
 
   const value = useMemo(() => ({

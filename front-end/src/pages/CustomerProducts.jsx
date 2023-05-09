@@ -12,7 +12,7 @@ export default function CustomerProducts() {
     handleDecrement,
     handleIncrement,
     handleRemoveFromCart,
-    handleClickCart
+    handleClickCart,
   } = useContext(myContext);
   const initialCartProducts = JSON.parse(localStorage.getItem('carrinho')) || [];
 
@@ -53,7 +53,8 @@ export default function CustomerProducts() {
       {products.map((e) => (
         <div key={ e.id }>
           <span data-testid={ `${CUSTOMER}__element-card-price${e.id}` }>
-            R${e.price}
+            R$
+            {e.price}
           </span>
           <img
             src={ e.url_image }
@@ -94,8 +95,12 @@ export default function CustomerProducts() {
           </button>
         </div>
       ))}
-      <button type="button" data-testid={ `${CUSTOMER}__button-cart` } onClick={ handleClickCart }
-      disabled={ initialCartProducts.length === 0  }>
+      <button
+        type="button"
+        data-testid={ `${CUSTOMER}__button-cart` }
+        onClick={ handleClickCart }
+        disabled={ initialCartProducts.length === 0 }
+      >
         Ver Carrinho
       </button>
       <span data-testid={ `${CUSTOMER}__checkout-bottom-value` }>
