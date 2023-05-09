@@ -12,6 +12,7 @@ export default function CustomerProducts() {
     handleDecrement,
     handleIncrement,
     handleRemoveFromCart,
+    handleClickCart
   } = useContext(myContext);
   const initialCartProducts = JSON.parse(localStorage.getItem('carrinho')) || [];
 
@@ -93,7 +94,8 @@ export default function CustomerProducts() {
           </button>
         </div>
       ))}
-      <button type="button" data-testid={ `${CUSTOMER}__button-cart` }>
+      <button type="button" data-testid={ `${CUSTOMER}__button-cart` } onClick={ handleClickCart }
+      disabled={ initialCartProducts.length === 0  }>
         Ver Carrinho
       </button>
       <span data-testid={ `${CUSTOMER}__checkout-bottom-value` }>
