@@ -1,8 +1,19 @@
-import React, { useContext, useEffect } from 'react';
-import products from '../mocks/mock.products';
+import React, { useContext, useEffect, useState } from 'react';
 import myContext from '../context/MyContext';
+import { requestProducts } from '../services/requests';
+
 
 export default function CustomerProducts() {
+  const [products, setProducts] = useState([]);
+
+  const getProducts = async () => {
+    const data = await requestProducts('/products');
+    setProducts(data);
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, []);
   const CUSTOMER = 'customer_products';
 
   const {

@@ -37,7 +37,6 @@ export default function RegisterPage() {
           name: register.name,
           role: 'customer' },
       );
-      console.log(response);
       localStorage.setItem('user', JSON.stringify(response));
       history.push('/customer/products');
     } catch (err) {
