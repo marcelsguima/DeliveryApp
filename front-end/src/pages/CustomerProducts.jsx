@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import myContext from '../context/MyContext';
 import { requestProducts } from '../services/requests';
-
+import Header from './Header';
 
 export default function CustomerProducts() {
   const [products, setProducts] = useState([]);
@@ -33,7 +33,8 @@ export default function CustomerProducts() {
 
   return (
     <div>
-      <nav>
+      <Header />
+      {/* <nav>
         <ul>
           <li>
             <a
@@ -60,7 +61,7 @@ export default function CustomerProducts() {
             Logout
           </button>
         </div>
-      </nav>
+      </nav> */}
       {products.map((e) => (
         <div key={ e.id }>
           <span data-testid={ `${CUSTOMER}__element-card-price${e.id}` }>
