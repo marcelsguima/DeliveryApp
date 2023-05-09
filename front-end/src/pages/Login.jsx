@@ -55,6 +55,8 @@ function Login() {
       });
     history.push('/customer/products');
   }
+
+  // Comentado porque estava dando interferência no pull
 //   const handleClick = async (e) => {
 //     e.preventDefault();
 //     try {
