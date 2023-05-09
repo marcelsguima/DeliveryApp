@@ -1,18 +1,20 @@
-import { useContext } from 'react';
+// import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import myContext from '../context/MyContext';
+// import myContext from '../context/MyContext';
 
 export default function Header() {
   const CUSTOMER = 'customer_products';
 
-  const {
-    getUserLocalHost,
-  } = useContext(myContext);
+  //   const {
+  //     getUserLocalHost,
+  //   } = useContext(myContext);
 
   const localStorageClear = () => {
     console.log(rote);
     localStorage.clear();
   };
+
+  const getUserLocalHost = () => JSON.parse(localStorage.getItem('user'));
 
   return (
     <nav>

@@ -58,9 +58,7 @@ function MyProvider({ children }) {
     history.push('customer/checkout');
   };
 
-  const getUserLocalHost = () => {
-    JSON.parse(localStorage.getItem('user'));
-  };
+  // const getUserLocalHost = () => JSON.parse(localStorage.getItem('user'));
 
   const value = useMemo(() => ({
     cartProducts,
@@ -73,10 +71,10 @@ function MyProvider({ children }) {
     handleIncrement,
     handleDecrement,
     handleClickCart,
-    getUserLocalHost,
+    // getUserLocalHost,
   }), [cartProducts, handleAddToCart, setCartProducts,
     totalPrice, quantities, setQuantities,
-    handleRemoveFromCart, handleIncrement, handleDecrement, handleClickCart]);
+    handleRemoveFromCart, handleIncrement, handleDecrement]);
 
   return (
     <myContext.Provider value={ value }>
