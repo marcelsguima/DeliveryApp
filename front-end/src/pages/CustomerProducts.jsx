@@ -1,8 +1,24 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import products from '../mocks/mock.products';
+import myContext from '../context/MyContext';
 
 export default function CustomerProducts() {
   const CUSTOMER = 'customer_products';
+
+  const {
+    handleAddToCart,
+    setCartProducts, totalPrice,
+    quantities,
+    handleDecrement,
+    handleIncrement,
+    handleRemoveFromCart,
+  } = useContext(myContext);
+  const initialCartProducts = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+  useEffect(() => {
+    setCartProducts(initialCartProducts);
+  }, [setCartProducts]);
+
   return (
     <div>
       <nav>
@@ -36,7 +52,9 @@ export default function CustomerProducts() {
       {products.map((e) => (
         <div key={ e.id }>
           <span data-testid={ `${CUSTOMER}__element-card-price${e.id}` }>
-            R$ {e.price}
+            R$
+            {' '}
+            {e.price}
           </span>
           <img
             src={ e.url_image }
@@ -47,17 +65,31 @@ export default function CustomerProducts() {
           <h1 data-testid={ `${CUSTOMER}__element-card-title${e.id}` }>
             {e.name}
           </h1>
-          <button type="button" data-testid={ `${CUSTOMER}__button-card-rm-item${e.id}` }>
+          <button
+            type="button"
+            data-testid={ `${CUSTOMER}__button-card-rm-item${e.id}` }
+            onClick={ () => {
+              handleRemoveFromCart(e);
+              handleDecrement(e.id);
+            } }
+            disabled={ quantities[e.id] === 0 || !quantities[e.id] }
+          >
             -
           </button>
           <input
             type="number"
             placeholder="0"
             data-testid={ `${CUSTOMER}__input-card-quantity${e.id}` }
+            value={ quantities[e.id] || 0 }
+            readOnly
           />
           <button
             type="button"
             data-testid={ `${CUSTOMER}__button-card-add-item${e.id}` }
+            onClick={ () => {
+              handleAddToCart(e);
+              handleIncrement(e.id);
+            } }
           >
             +
           </button>
@@ -67,7 +99,7 @@ export default function CustomerProducts() {
         Ver Carrinho
       </button>
       <span data-testid={ `${CUSTOMER}__checkout-bottom-value` }>
-        0
+        { `R$ ${totalPrice.toFixed(2)}` }
       </span>
 
     </div>

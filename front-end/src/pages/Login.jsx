@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import ELEMENTS from '../utils/Html.elements';
-import { requestLogin } from '../services/requests';
 import axios from 'axios';
+import ELEMENTS from '../utils/Html.elements';
+// import { requestLogin } from '../services/requests';
 
 function Login() {
   const history = useHistory();
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const [email, setEmail] = useState('');
+  const [emailInput, setEmailInput] = useState('');
   const [password, setPassword] = useState('');
 
   const minimumPassword = 6;
@@ -18,23 +18,23 @@ function Login() {
   };
 
   const handleChangeEmail = (e) => {
-    setEmail(e.target.value);
+    setEmailInput(e.target.value);
     setIsButtonDisabled(!validateEmail(e.target.value) || password
       .length < minimumPassword);
   };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
-    setIsButtonDisabled(!validateEmail(email) || event.target.value
+    setIsButtonDisabled(!validateEmail(emailInput) || event.target.value
       .length < minimumPassword);
   };
 
   const handleClick = () => {
     axios.post('http://localhost:3001/login', {
-      email,
+      emailInput,
       password,
     })
-    .then((response) => {
+      .then((response) => {
         console.log(response.data, 'Número 3-');
         const { email, role, name } = response.data;
         const user = { email, role, name };
@@ -90,7 +90,7 @@ function Login() {
             data-testid={ `${ELEMENTS.ROUTE}__${ELEMENTS.INPUT_EMAIL}` }
             placeholder="email@email.com"
             id="input-email"
-            value={ email }
+            value={ emailInput }
             onChange={ handleChangeEmail }
           />
         </label>
