@@ -29,7 +29,7 @@ export default function RegisterPage() {
     e.preventDefault();
 
     try {
-      const data = await requestRegister(
+      const response = await requestRegister(
         '/register',
         {
           email: register.email,
@@ -37,28 +37,13 @@ export default function RegisterPage() {
           name: register.name,
           role: 'customer' },
       );
-      console.log(data);
+      console.log(response);
+      localStorage.setItem('user', JSON.stringify(response));
       history.push('/customer/products');
     } catch (err) {
       setError(true);
-      changeAuthorized(true);
     }
   };
-
-  // const handleClick = () => {
-  //   console.log(register);
-  //   axios.post('http://localhost:3001/register', {
-  //     register,
-  //   })
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       history.push('/customer/products');
-  //     })
-  //     .catch((err) => {
-  //       console.log(err.response);
-  //       setError(true);
-  //     });
-  // };
 
   return (
     <div className="register-page">

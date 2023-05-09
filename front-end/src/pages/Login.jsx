@@ -54,7 +54,22 @@ function Login() {
         }
       });
     history.push('/customer/products');
-  };
+  }
+//   const handleClick = async (e) => {
+//     e.preventDefault();
+//     try {
+//       const response = await requestLogin(
+//         '/login',
+//         { email, password },
+//       );
+//       console.log(response);
+//       localStorage.setItem('user', JSON.stringify(response));
+//       history.push('/customer/products');
+//     } catch (error) {
+//       console.log(error);
+//     }
+// >>>>>>> 123451f8c3b97147ab90af3ff6951844cafe63f2
+//   };
   // useEffect(() => {
   //   const user = localStorage.getItem('user');
   //   console.log(user);
@@ -62,23 +77,6 @@ function Login() {
   //     history.push('/customer/products');
   //   }
   // }, []);
-
-  // const handleClick = () => {
-  //   axios.post('http://localhost:3001/login', {
-  //     email,
-  //     password,
-  //   })
-  //     .then((response) => {
-  //       const { email, role, name } = response.data;
-  //       const user = { email, role, name };
-  //       localStorage.setItem('user', JSON.stringify(response.data));
-  //       console.log(response.data);
-  //       history.push('/customer/products');
-  //     })
-  //     .catch((error) => {
-  //       console.log(error.response);
-  //     });
-  // };
 
   return (
     <div>
