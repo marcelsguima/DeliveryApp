@@ -34,34 +34,6 @@ export default function CustomerProducts() {
   return (
     <div>
       <Header />
-      {/* <nav>
-        <ul>
-          <li>
-            <a
-              href="/products"
-              data-testid={ `${CUSTOMER}__element-navbar-link-products` }
-            >
-              Produtos
-            </a>
-          </li>
-          <li>
-            <a
-              href="/pedidos"
-              data-testid={ `${CUSTOMER}__element-navbar-link-orders` }
-            >
-              Pedidos
-            </a>
-          </li>
-        </ul>
-        <div>
-          <span data-testid={ `${CUSTOMER}__element-navbar-user-full-name` }>
-            Nome da pessoa usuária
-          </span>
-          <button type="button" data-testid={ `${CUSTOMER}__element-navbar-link-logout` }>
-            Logout
-          </button>
-        </div>
-      </nav> */}
       {products.map((e) => (
         <div key={ e.id }>
           <span data-testid={ `${CUSTOMER}__element-card-price${e.id}` }>

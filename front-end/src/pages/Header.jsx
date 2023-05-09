@@ -10,7 +10,6 @@ export default function Header() {
   //   } = useContext(myContext);
 
   const localStorageClear = () => {
-    console.log(rote);
     localStorage.clear();
   };
 
@@ -37,9 +36,8 @@ export default function Header() {
         </li>
       </ul>
       <div>
-
         <span data-testid={ `${CUSTOMER}__element-navbar-user-full-name` }>
-          {getUserLocalHost().name}
+          {getUserLocalHost()?.name || ''}
         </span>
         <Link
           to="/login"
