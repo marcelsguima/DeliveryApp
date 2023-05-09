@@ -1,6 +1,6 @@
 const userService = require('../services/userService');
 const { generateToken } = require('../middleware/tokenGenerator');
-const { registerUserSchema } = require('../middleware/validations');
+const { createRegister } = require('../middleware/validations');
 
 const deleteMe = async (req, res) => {
   const userId = req.payload.id;
@@ -24,15 +24,15 @@ const getUserById = async (req, res) => {
 
 const registerUser = async (req, res) => {
   try {
-  const { displayName, email, password, image } = await registerUserSchema.validateAsync(req.body);
+  const { name, email, password, role } = await createRegister.validateAsync(req.body);
     const userExists = await userService.getUserByEmail(email);
     if (userExists) {
-      return res.status(409).json({ message: 'User already registered' });
+      return res.status(409).json({ message: 'Usuário já cadastrado' });
     }
-    const newUser = await userService.registerUser(displayName, email, password, image);
+    const newUser = await userService.registerUser(name, email, password, role);
     console.log(newUser, 'NEWUSER');
     const token = generateToken(newUser);
-    res.status(201).json({ token });
+    res.status(201).json({ name, email, role, token });
   } catch (err) {
     console.error(err.message);
     if (err.isJoi) {

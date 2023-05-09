@@ -8,6 +8,13 @@ const registerUserSchema = Joi.object({
   image: Joi.string(),
 });
 
+const createRegister = Joi.object({
+  name: Joi.string().min(12).required(),
+  email: Joi.string().email().required(),
+  password: Joi.string().min(6).required(),
+  role: Joi.string().required(),
+});
+
 const secret = process.env.JWT_SECRET || 'valor padrão';
 
 const tokenValidation = (req, res, next) => {
@@ -26,4 +33,5 @@ const tokenValidation = (req, res, next) => {
 module.exports = { 
   registerUserSchema,
   tokenValidation,
+  createRegister,
 }; 
