@@ -3,6 +3,7 @@ import { allOrders } from '../mocks/mock.costumerOrders';
 
 export default function CustomerOrders() {
   const CUSTOMER = 'customer_orders';
+  const PRODUCTS = 'customer_products';
   return (
     <div>
       <nav>
@@ -36,32 +37,32 @@ export default function CustomerOrders() {
       {allOrders.map((e) => (
         <div key={ e.order_id }>
 
-          <h1 data-testid={ `${CUSTOMER}__element-order-id-${e.order_id}` }>
+          <h1 data-testid={ `${PRODUCTS}__element-order-id-${e.order_id}` }>
             {e.order_id}
           </h1>
 
-          <span data-testid={ `${CUSTOMER}__element-delivery-status-${e.order_id}` }>
+          <span data-testid={ `${PRODUCTS}__element-delivery-status-${e.order_id}` }>
             {e.order_status}
           </span>
 
-          <span data-testid={ `${CUSTOMER}__element-order-date-${e.order_id}` }>
+          <span data-testid={ `${PRODUCTS}__element-order-date-${e.order_id}` }>
             {e.sale_date}
           </span>
 
-          <span data-testid={ `${CUSTOMER}__element-card-price-${e.order_id}` }>
+          <span data-testid={ `${PRODUCTS}__element-card-price-${e.order_id}` }>
             R$
             {' '}
             {e.order_value}
           </span>
 
-          <span data-testid={ `${CUSTOMER}__element-card-address-${e.order_id}` }>
+          <span data-testid={ `${PRODUCTS}__element-card-address-${e.order_id}` }>
             {e.order_address}
           </span>
 
         </div>
       ))}
 
-      <span data-testid={ `${CUSTOMER}__checkout-bottom-value` }>
+      <span data-testid={ `${PRODUCTS}__checkout-bottom-value` }>
         0
       </span>
 
