@@ -4,7 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import CustomerProducts from './pages/CustomerProducts';
 import Login from './pages/Login';
 import RegisterPage from './pages/RegisterPage';
-import MyProvider from './context/MyProvider';
+// import MyProvider from './context/MyProvider';
 
 function App() {
   return (

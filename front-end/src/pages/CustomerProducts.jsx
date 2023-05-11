@@ -5,10 +5,18 @@ import Header from './Header';
 
 export default function CustomerProducts() {
   const [products, setProducts] = useState([]);
+  const history = useHistory();
 
   const getProducts = async () => {
     const data = await requestProducts('/products');
     setProducts(data);
+  };
+
+  const getUserLocalHost = () => JSON.parse(localStorage.getItem('user'));
+
+  const signOut = () => {
+    localStorage.removeItem('user');
+    history.push('/login');
   };
 
   useEffect(() => {
@@ -36,22 +44,21 @@ export default function CustomerProducts() {
       <Header />
       {products.map((e) => (
         <div key={ e.id }>
-          <span data-testid={ `${CUSTOMER}__element-card-price${e.id}` }>
+          <span data-testid={ `${CUSTOMER}__element-card-price-${e.id}` }>
             R$
             {e.price}
           </span>
           <img
             src={ e.url_image }
             alt={ e.name }
-            data-testid={ `${CUSTOMER}__img-card-bg-image${e.id}` }
+            data-testid={ `${CUSTOMER}__img-card-bg-image-${e.id}` }
           />
-
-          <h1 data-testid={ `${CUSTOMER}__element-card-title${e.id}` }>
+          <h1 data-testid={ `${CUSTOMER}__element-card-title-${e.id}` }>
             {e.name}
           </h1>
           <button
             type="button"
-            data-testid={ `${CUSTOMER}__button-card-rm-item${e.id}` }
+            data-testid={ `${CUSTOMER}__button-card-rm-item-${e.id}` }
             onClick={ () => {
               handleRemoveFromCart(e);
               handleDecrement(e.id);
@@ -63,13 +70,13 @@ export default function CustomerProducts() {
           <input
             type="number"
             placeholder="0"
-            data-testid={ `${CUSTOMER}__input-card-quantity${e.id}` }
+            data-testid={ `${CUSTOMER}__input-card-quantity-${e.id}` }
             value={ quantities[e.id] || 0 }
             readOnly
           />
           <button
             type="button"
-            data-testid={ `${CUSTOMER}__button-card-add-item${e.id}` }
+            data-testid={ `${CUSTOMER}__button-card-add-item-${e.id}` }
             onClick={ () => {
               handleAddToCart(e);
               handleIncrement(e.id);

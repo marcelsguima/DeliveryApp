@@ -83,8 +83,4 @@ function MyProvider({ children }) {
   );
 }
 
-MyProvider.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
 export default MyProvider;
