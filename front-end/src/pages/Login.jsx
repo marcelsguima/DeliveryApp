@@ -33,7 +33,7 @@ function Login() {
     try {
       const response = await requestLogin(
         '/login',
-        { email, password },
+        { emailInput, password },
       );
       console.log(response);
       localStorage.setItem('user', JSON.stringify(response));
