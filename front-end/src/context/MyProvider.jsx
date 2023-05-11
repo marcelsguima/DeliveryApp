@@ -15,7 +15,7 @@ function MyProvider({ children }) {
     const newCartItems = [...cartProducts, item];
     setCartProducts(newCartItems);
     // Guardando o valor total do carrinho
-    setTotalPrice(totalPrice + item.price);
+    setTotalPrice(parseFloat(totalPrice + item.price));
     // salva o carrinho no localStorage
     localStorage.setItem('carrinho', JSON.stringify(newCartItems));
   };
@@ -33,7 +33,7 @@ function MyProvider({ children }) {
     setQuantities(newQuantities); // atualiza as quantidades
 
     // Guardando o valor total do carrinho
-    setTotalPrice(totalPrice - product.price);
+    setTotalPrice(parseFloat(totalPrice - product.price));
 
     localStorage.setItem('carrinho', JSON.stringify(newCartProducts));
   };

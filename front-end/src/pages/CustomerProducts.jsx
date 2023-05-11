@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import myContext from '../context/MyContext';
 import { requestProducts } from '../services/requests';
 import Header from './Header';
+import { useHistory } from 'react-router-dom';
 
 export default function CustomerProducts() {
   const [products, setProducts] = useState([]);
@@ -95,7 +96,7 @@ export default function CustomerProducts() {
         Ver Carrinho
       </button>
       <span data-testid={ `${CUSTOMER}__checkout-bottom-value` }>
-        { `R$ ${totalPrice.toFixed(2)}` }
+        { `R$ ${+(totalPrice).toFixed(2)}` }
       </span>
 
     </div>
