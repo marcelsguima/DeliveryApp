@@ -59,14 +59,13 @@ export default function CustomerProducts() {
       {products.map((e) => (
         <div key={ e.id }>
           <span data-testid={ `${CUSTOMER}__element-card-price-${e.id}` }>
-            {e.price.toString().replace('.', ',')}
+            {e.price.toString().replace(/\./, ',')}
           </span>
           <img
             src={ e.url_image }
             alt={ e.name }
             data-testid={ `${CUSTOMER}__img-card-bg-image-${e.id}` }
           />
-
           <h1 data-testid={ `${CUSTOMER}__element-card-title-${e.id}` }>
             {e.name}
           </h1>
@@ -79,6 +78,7 @@ export default function CustomerProducts() {
           <input
             type="number"
             placeholder="0"
+            value={ 0 }
             data-testid={ `${CUSTOMER}__input-card-quantity-${e.id}` }
           />
           <button
