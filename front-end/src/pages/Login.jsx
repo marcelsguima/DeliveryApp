@@ -8,7 +8,7 @@ function Login() {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const [error, setError] = useState('');
   const minimumPassword = 6;
 
   const validateEmail = (param) => {
@@ -36,28 +36,13 @@ function Login() {
         { email, password },
       );
       console.log(response);
+      localStorage.setItem('user', JSON.stringify(response));
       history.push('/customer/products');
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
+      setError('Deu erro');
     }
   };
-
-  // const handleClick = () => {
-  //   axios.post('http://localhost:3001/login', {
-  //     email,
-  //     password,
-  //   })
-  //     .then((response) => {
-  //       const { email, role, name } = response.data;
-  //       const user = { email, role, name };
-  //       localStorage.setItem('user', JSON.stringify(response.data));
-  //       console.log(response.data);
-  //       history.push('/customer/products');
-  //     })
-  //     .catch((error) => {
-  //       console.log(error.response);
-  //     });
-  // };
 
   return (
     <div>
@@ -100,12 +85,16 @@ function Login() {
         >
           Ainda não tenho conta
         </button>
-        <h6
-          data-testid={ `${ELEMENTS.ROUTE}__${ELEMENTS.INVALID_EMAIL}` }
-        >
-          Elemento oculto
-          (Mensagens de erro)
-        </h6>
+        {
+          error
+          && (
+            <h6
+              data-testid={ `${ELEMENTS.ROUTE}__${ELEMENTS.INVALID_EMAIL}` }
+            >
+              {error}
+            </h6>
+          )
+        }
       </form>
     </div>
   );

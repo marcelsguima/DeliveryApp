@@ -15,7 +15,11 @@ const createUser = async (req, res) => {
   }
   const toToken = newUser.dataValues;
   const token = generateToken(toToken);
-  return res.status(200).json({ token });
+  return res.status(200).json({ 
+    name: newUser.name,
+    email,
+    role: newUser.role,
+    token });
 };
 
 module.exports = {

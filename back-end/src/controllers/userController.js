@@ -32,7 +32,7 @@ const registerUser = async (req, res) => {
     const newUser = await userService.registerUser(name, email, password, role);
     console.log(newUser, 'NEWUSER');
     const token = generateToken(newUser);
-    res.status(201).json({ token });
+    res.status(201).json({ name, email, role, token });
   } catch (err) {
     console.error(err.message);
     if (err.isJoi) {

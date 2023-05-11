@@ -5,9 +5,11 @@ import CustomerProducts from './pages/CustomerProducts';
 import CostumerOrders from './pages/CustomerOrders';
 import Login from './pages/Login';
 import RegisterPage from './pages/RegisterPage';
+// import MyProvider from './context/MyProvider';
 
 function App() {
   return (
+    // <MyProvider>
     <Switch>
       <Route exact path="/">
         <Redirect to="/login" />
