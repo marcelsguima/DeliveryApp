@@ -1,9 +1,10 @@
-// import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { useHistory, Link } from 'react-router-dom';
 // import myContext from '../context/MyContext';
 
 export default function Header() {
   const CUSTOMER = 'customer_products';
+  const history = useHistory();
 
   //   const {
   //     getUserLocalHost,
@@ -11,6 +12,7 @@ export default function Header() {
 
   const localStorageClear = () => {
     localStorage.clear();
+    history.push('/login');
   };
 
   const getUserLocalHost = () => JSON.parse(localStorage.getItem('user'));

@@ -1,18 +1,15 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-// import axios from 'axios';
 import ELEMENTS from '../utils/Html.elements';
 import { requestLogin } from '../services/requests';
 
 function Login() {
   const history = useHistory();
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const [emailInput, setEmailInput] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const minimumPassword = 6;
-
-  const NOT_FOUND = 404;
 
   const validateEmail = (param) => {
     const EMAIL_FORMAT = /^[^\s@]+@[^\s@]+\.(com)$/;
@@ -20,14 +17,14 @@ function Login() {
   };
 
   const handleChangeEmail = (e) => {
-    setEmailInput(e.target.value);
+    setEmail(e.target.value);
     setIsButtonDisabled(!validateEmail(e.target.value) || password
       .length < minimumPassword);
   };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
-    setIsButtonDisabled(!validateEmail(emailInput) || event.target.value
+    setIsButtonDisabled(!validateEmail(email) || event.target.value
       .length < minimumPassword);
   };
 
@@ -57,7 +54,7 @@ function Login() {
             data-testid={ `${ELEMENTS.ROUTE}__${ELEMENTS.INPUT_EMAIL}` }
             placeholder="email@email.com"
             id="input-email"
-            value={ emailInput }
+            value={ email }
             onChange={ handleChangeEmail }
           />
         </label>

@@ -2,22 +2,13 @@ import React, { useContext, useEffect, useState } from 'react';
 import myContext from '../context/MyContext';
 import { requestProducts } from '../services/requests';
 import Header from './Header';
-import { useHistory } from 'react-router-dom';
 
 export default function CustomerProducts() {
   const [products, setProducts] = useState([]);
-  const history = useHistory();
 
   const getProducts = async () => {
     const data = await requestProducts('/products');
     setProducts(data);
-  };
-
-  const getUserLocalHost = () => JSON.parse(localStorage.getItem('user'));
-
-  const signOut = () => {
-    localStorage.removeItem('user');
-    history.push('/login');
   };
 
   useEffect(() => {
@@ -46,8 +37,7 @@ export default function CustomerProducts() {
       {products.map((e) => (
         <div key={ e.id }>
           <span data-testid={ `${CUSTOMER}__element-card-price-${e.id}` }>
-            R$
-            {e.price}
+            {`R$ ${e.price.replace(/\./, ',')}`}
           </span>
           <img
             src={ e.url_image }
@@ -96,7 +86,7 @@ export default function CustomerProducts() {
         Ver Carrinho
       </button>
       <span data-testid={ `${CUSTOMER}__checkout-bottom-value` }>
-        { `R$ ${+(totalPrice).toFixed(2)}` }
+        {`R$ ${+(totalPrice).toFixed(2)}`}
       </span>
 
     </div>
