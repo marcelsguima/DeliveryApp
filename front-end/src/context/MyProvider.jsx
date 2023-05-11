@@ -33,7 +33,9 @@ function MyProvider({ children }) {
     setQuantities(newQuantities); // atualiza as quantidades
 
     // Guardando o valor total do carrinho
-    setTotalPrice(parseFloat(totalPrice - product.price));
+    if (totalPrice >= 1) {
+      setTotalPrice(parseFloat(totalPrice - product.price));
+    }
 
     localStorage.setItem('carrinho', JSON.stringify(newCartProducts));
   };
