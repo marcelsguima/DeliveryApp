@@ -58,7 +58,6 @@ export default function CustomerProducts() {
             type="number"
             data-testid={ `${CUSTOMER}__input-card-quantity-${e.id}` }
             value={ quantities[e.id] || 0 }
-            readOnly
           />
           <button
             type="button"
