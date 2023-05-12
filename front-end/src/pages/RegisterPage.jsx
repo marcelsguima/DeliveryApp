@@ -45,8 +45,8 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="register-page">
-      <div className="register-container">
+    <div>
+      <div>
         <h1>Cadastro</h1>
         <form className="register-form">
           <label htmlFor="name">
@@ -104,8 +104,7 @@ export default function RegisterPage() {
         <div>
           <button
             type="button"
-            className="back-end"
-            onClick={ () => history('/login') }
+            onClick={ () => history.push('/login') }
           >
             Voltar
           </button>
