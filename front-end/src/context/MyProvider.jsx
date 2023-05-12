@@ -6,7 +6,11 @@ import myContext from './MyContext';
 function MyProvider({ children }) {
   const [cartProducts, setCartProducts] = useState([]);
   const [quantities, setQuantities] = useState({});
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0, () => {
+    const initialCartProducts = JSON.parse(localStorage.getItem('carrinho')) || [];
+    return initialCartProducts.reduce((total, product) => total + parseFloat(product.price), 0);
+  });
+  
   const magicNumber = -1;
   const history = useHistory();
 
@@ -15,7 +19,9 @@ function MyProvider({ children }) {
     const newCartItems = [...cartProducts, item];
     setCartProducts(newCartItems);
     // Guardando o valor total do carrinho
-    setTotalPrice(parseFloat(totalPrice + item.price));
+    setTotalPrice((total) => total + parseFloat(item.price));
+    console.log(totalPrice);
+
     // salva o carrinho no localStorage
     localStorage.setItem('carrinho', JSON.stringify(newCartItems));
   };
@@ -33,9 +39,8 @@ function MyProvider({ children }) {
     setQuantities(newQuantities); // atualiza as quantidades
 
     // Guardando o valor total do carrinho
-    if (totalPrice >= 1) {
       setTotalPrice(parseFloat(totalPrice - product.price));
-    }
+  
 
     localStorage.setItem('carrinho', JSON.stringify(newCartProducts));
   };
@@ -57,7 +62,7 @@ function MyProvider({ children }) {
   };
 
   const handleClickCart = () => {
-    history.push('customer/checkout');
+    history.push('checkout');
   };
 
   // const getUserLocalHost = () => JSON.parse(localStorage.getItem('user'));

@@ -18,19 +18,15 @@ export default function CustomerProducts() {
 
   const {
     handleAddToCart,
-    setCartProducts, totalPrice,
+    totalPrice,
     quantities,
     handleDecrement,
     handleIncrement,
     handleRemoveFromCart,
     handleClickCart,
+    cartProducts,
   } = useContext(myContext);
-  const initialCartProducts = JSON.parse(localStorage.getItem('carrinho')) || [];
-
-  useEffect(() => {
-    setCartProducts(initialCartProducts);
-  }, [setCartProducts]);
-
+  
   return (
     <div>
       <Header />
@@ -60,7 +56,6 @@ export default function CustomerProducts() {
           </button>
           <input
             type="number"
-            placeholder="0"
             data-testid={ `${CUSTOMER}__input-card-quantity-${e.id}` }
             value={ quantities[e.id] || 0 }
             readOnly
@@ -81,12 +76,12 @@ export default function CustomerProducts() {
         type="button"
         data-testid={ `${CUSTOMER}__button-cart` }
         onClick={ handleClickCart }
-        disabled={ initialCartProducts.length === 0 }
+        disabled={ cartProducts.length === 0 }
       >
         Ver Carrinho
       </button>
       <span data-testid={ `${CUSTOMER}__checkout-bottom-value` }>
-        {`R$ ${+(totalPrice).toFixed(2)}`}
+      {totalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
       </span>
 
     </div>
