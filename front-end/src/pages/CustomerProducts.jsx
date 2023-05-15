@@ -10,7 +10,6 @@ export default function CustomerProducts() {
     const data = await requestProducts('/products');
     setProducts(data);
   };
-
   useEffect(() => {
     getProducts();
   }, []);
@@ -18,17 +17,19 @@ export default function CustomerProducts() {
 
   const {
     handleAddToCart,
-    totalPrice,
+    parceTotal,
     quantities,
     handleDecrement,
     handleIncrement,
     handleRemoveFromCart,
     handleClickCart,
     cartProducts,
+    handleInputNumber,
   } = useContext(myContext);
-  
+
   return (
     <div>
+      { console.log(parceTotal) }
       <Header />
       {products.map((e) => (
         <div key={ e.id }>
@@ -48,17 +49,18 @@ export default function CustomerProducts() {
             data-testid={ `${CUSTOMER}__button-card-rm-item-${e.id}` }
             onClick={ () => {
               handleRemoveFromCart(e);
-              handleDecrement(e.id);
+              handleDecrement(e.id, e.price);
             } }
-            disabled={ quantities[e.id] === 0 || !quantities[e.id] }
+            disabled={ +quantities[e.id] === 0 || !quantities[e.id] }
           >
             -
           </button>
           <input
             type="number"
+            placeholder="0"
             data-testid={ `${CUSTOMER}__input-card-quantity-${e.id}` }
-            value={ quantities[e.id] || 0 }
-            readOnly
+            value={ quantities[e.id] }
+            onChange={ handleInputNumber(e.id, e.price) }
           />
           <button
             type="button"
@@ -81,7 +83,7 @@ export default function CustomerProducts() {
         Ver Carrinho
       </button>
       <span data-testid={ `${CUSTOMER}__checkout-bottom-value` }>
-      {totalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+        {parceTotal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
       </span>
 
     </div>

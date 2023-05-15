@@ -10,9 +10,10 @@ function MyProvider({ children }) {
     const initialCartProducts = JSON.parse(localStorage.getItem('carrinho')) || [];
     return initialCartProducts.reduce((total, product) => total + parseFloat(product.price), 0);
   });
-  
+
   const magicNumber = -1;
   const history = useHistory();
+  const parceTotal = parseFloat(totalPrice);
 
   const handleAddToCart = (item) => {
     // adiciona um item ao carrinho
@@ -20,8 +21,7 @@ function MyProvider({ children }) {
     setCartProducts(newCartItems);
     // Guardando o valor total do carrinho
     setTotalPrice((total) => total + parseFloat(item.price));
-    console.log(totalPrice);
-
+    console.log('Add', totalPrice);
     // salva o carrinho no localStorage
     localStorage.setItem('carrinho', JSON.stringify(newCartItems));
   };
@@ -39,8 +39,8 @@ function MyProvider({ children }) {
     setQuantities(newQuantities); // atualiza as quantidades
 
     // Guardando o valor total do carrinho
-      setTotalPrice(parseFloat(totalPrice - product.price));
-  
+
+    setTotalPrice(parseFloat(parceTotal - product.price));
 
     localStorage.setItem('carrinho', JSON.stringify(newCartProducts));
   };
@@ -54,11 +54,38 @@ function MyProvider({ children }) {
   };
 
   // Função que vai ser utilizada para decrementar o input de quantidade
-  const handleDecrement = (productId) => {
+  const handleDecrement = (product, price) => {
     setQuantities({
       ...quantities,
-      [productId]: (quantities[productId] || 0) - 1,
+      [product]: (quantities[product] || 0) - 1,
     });
+
+    const newPrice = (Number(parceTotal) - Number(price).toFixed(2));
+    setTotalPrice(newPrice >= 0 ? newPrice : 0);
+  };
+
+  const handleInputNumber = (id, price) => (element) => {
+    if (element.target.value) {
+      setQuantities({
+        ...quantities,
+        [id]: Number(element.target.value),
+      });
+      const newQuantities = quantities[id] || 0;
+      const newPrice = Number(newQuantities) * Number(price);
+      const newTotal = Number(element.target.value) * Number(price);
+      console.log('ParcePrice:', typeof parceTotal);
+
+      setTotalPrice(parseFloat(
+        Number(parceTotal) - Number(newPrice) + Number(newTotal),
+      ).toFixed(2));
+      console.log('TotalPrice:', typeof totalPrice);
+      console.log('NewPrice:', typeof newPrice);
+    } else {
+      setQuantities(parseFloat({
+        ...quantities,
+        [id]: 0,
+      }).toFixed(2));
+    }
   };
 
   const handleClickCart = () => {
@@ -71,16 +98,18 @@ function MyProvider({ children }) {
     cartProducts,
     handleAddToCart,
     setCartProducts,
-    totalPrice,
+    parceTotal,
+    setTotalPrice,
     quantities,
     setQuantities,
     handleRemoveFromCart,
     handleIncrement,
     handleDecrement,
     handleClickCart,
+    handleInputNumber,
     // getUserLocalHost,
   }), [cartProducts, handleAddToCart, setCartProducts,
-    totalPrice, quantities, setQuantities,
+    parceTotal, quantities, setQuantities,
     handleRemoveFromCart, handleIncrement, handleDecrement]);
 
   return (
