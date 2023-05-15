@@ -32,7 +32,7 @@ function MyProvider({ children }) {
 
     const newQuantities = { ...quantities };
     delete newQuantities[product.id]; // remove o item do objeto de quantidades
-
+    console.log(newQuantities);
     const newCartProducts = [...cartProducts];
     newCartProducts.splice(indexToRemove, 1);
     setCartProducts(newCartProducts);
