@@ -4,11 +4,17 @@ module.exports = (sequelize, DataTypes) => {
     },
 userId: DataTypes.INTEGER,
     sellerId: DataTypes.INTEGER,
-    totalPrice: DataTypes.DECIMAL(9, 2),
+    total_price: DataTypes.DECIMAL(9, 2),
     deliveryAddress: DataTypes.STRING(100),
     deliveryNumber: DataTypes.STRING(50),
-    saleDate: DataTypes.DATE,
-    status: DataTypes.STRING(50),
+    sale_date: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+    },
+    status: {
+      type: DataTypes.STRING(50),
+      defaultValue: 'Pendente',
+    },
   }, { timestamps: false,
     tableName: 'sales',
   });

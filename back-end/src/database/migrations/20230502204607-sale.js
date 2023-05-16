@@ -23,7 +23,7 @@ module.exports = {
           key: 'id',
         },
       },
-      total_price: {
+      totalPrice: {
         type: Sequelize.DECIMAL(9, 2),
       },
     });

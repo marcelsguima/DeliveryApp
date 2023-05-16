@@ -3,6 +3,7 @@ const userRouter = require('../router/user.route');
 const loginRouter = require('../router/login.route');
 const registerRouter = require('../router/register.route');
 const productRouter = require('../router/product.route');
+const saleRouter = require('../router/sale.route')
 
 const app = express();
 
@@ -20,5 +21,6 @@ app.use('/user', userRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 app.use('/products', productRouter);
+app.use('/', saleRouter);
 
 module.exports = app;
