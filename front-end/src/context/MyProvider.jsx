@@ -65,15 +65,17 @@ function MyProvider({ children }) {
 
   const handleClickCart = () => {
     const product = Object.entries(quantities).filter((prod) => prod[1] > 0);
-    const getQuantities = product.map(
-      (prod) => (
-        {
-          ...products.find(
-            (element) => Number(element.id) === Number(prod[0]),
-          ),
-        }),
-    );
+    const getQuantities = product.map((prod) => {
+      const foundProduct = products.find(
+        (element) => Number(element.id) === Number(prod[0]),
+      );
+      return {
+        ...foundProduct,
+        quantity: prod[1],
+      };
+    });
     setCartProducts(getQuantities);
+    localStorage.setItem('carrinho', JSON.stringify(getQuantities));
     history.push('checkout');
   };
 
