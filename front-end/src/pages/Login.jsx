@@ -10,30 +10,26 @@ function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const minimumPassword = 6;
-
   const validateEmail = (param) => {
     const EMAIL_FORMAT = /^[^\s@]+@[^\s@]+\.(com)$/;
     return EMAIL_FORMAT.test(param);
   };
-
   const handleChangeEmail = (e) => {
     setEmail(e.target.value);
     setIsButtonDisabled(!validateEmail(e.target.value) || password
       .length < minimumPassword);
   };
-
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
     setIsButtonDisabled(!validateEmail(email) || event.target.value
       .length < minimumPassword);
   };
-
   const handleClick = async (e) => {
     e.preventDefault();
     try {
       const response = await requestLogin(
         '/login',
-        { emailInput, password },
+        { email, password },
       );
       console.log(response);
       localStorage.setItem('user', JSON.stringify(response));
@@ -43,7 +39,6 @@ function Login() {
       setError('Deu erro');
     }
   };
-
   return (
     <div>
       <form>
@@ -58,7 +53,6 @@ function Login() {
             onChange={ handleChangeEmail }
           />
         </label>
-
         <label htmlFor="input-password">
           Senha
           <input
@@ -99,5 +93,4 @@ function Login() {
     </div>
   );
 }
-
 export default Login;
