@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import myContext from "../context/MyContext";
+import axios from "axios";
 
 function CustomerCheckout() {
   const { totalPrice, handleRemoveFromCart } = useContext(myContext);
@@ -26,6 +27,21 @@ function CustomerCheckout() {
     });
 
     return Object.values(countedProducts);
+  };
+
+  const handleCheckout = () => {
+    const dataSale = {
+      status: 'Pendente',
+      products: countProducts(),
+    };
+
+    axios.post('http://localhost:3001/customer/checkout', dataSale).then((response) => {
+      console.log('sale: ', response.data);
+
+      localStorage.removeItem('carrinho');
+    }).catch((err) => {
+      console.log('deu erro', err);
+    })
   };
 
   return (
@@ -59,6 +75,8 @@ function CustomerCheckout() {
         </tbody>
       </table>
       <span>Total: R$ {totalPrice.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</span>
+
+      <button onClick={handleCheckout}>Finalizar pedido</button>
     </div>
   );
 }

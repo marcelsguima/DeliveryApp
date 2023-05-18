@@ -2,15 +2,23 @@ const saleService = require('../services/sale.service');
 
 const registerSale = async(req, res) => {
     const { 
+     userId,
+     sellerId,
      totalPrice,
      deliveryAddress,
      deliveryNumber,
      saleDate, 
+     products,
      } = req.body;
 
-    const data = { totalPrice, deliveryAddress, deliveryNumber, saleDate};
-
-    const newSale = await saleService.registerSale(data)
+    const newSale = await saleService.registerSale(userId,
+        sellerId,
+        totalPrice,
+        deliveryAddress,
+        deliveryNumber,
+        saleDate,
+        products,
+        )
 
     if (newSale) {
         return res.status(201).json(newSale)

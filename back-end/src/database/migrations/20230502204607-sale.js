@@ -23,37 +23,31 @@ module.exports = {
           key: 'id',
         },
       },
-      totalPrice: {
+      total_price: {
         type: Sequelize.DECIMAL(9, 2),
       },
-    });
-
-    await queryInterface.addColumn('sales', 'delivery_address', {
-      type: Sequelize.STRING(100),
-    });
-
-    await queryInterface.addColumn('sales', 'delivery_number', {
-      type: Sequelize.STRING(50),
-    });
-
-    await queryInterface.addColumn('sales', 'sale_date', {
-      type: Sequelize.DATE,
-    });
-
-    await queryInterface.addColumn('sales', 'status', {
-      type: Sequelize.STRING,
-    });
-
-    await queryInterface.addColumn('sales', 'createdAt', {
-      allowNull: false,
-      type: Sequelize.DATE,
-      defaultValue: Sequelize.literal('NOW()'),
-    });
-
-    await queryInterface.addColumn('sales', 'updatedAt', {
-      allowNull: false,
-      type: Sequelize.DATE,
-      defaultValue: Sequelize.literal('NOW()'),
+      delivery_address: {
+        type: Sequelize.STRING(100),
+      },
+      delivery_number: {
+        type: Sequelize.STRING(50),
+      },
+      sale_date: {
+        type: Sequelize.DATE,
+      },
+      status: {
+        type: Sequelize.STRING,
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('NOW()'),
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('NOW()'),
+      },
     });
 
     await queryInterface.addConstraint('sales', {
