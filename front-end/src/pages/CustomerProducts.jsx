@@ -26,7 +26,7 @@ export default function CustomerProducts() {
     handleClickCart,
     cartProducts,
   } = useContext(myContext);
-  
+
   return (
     <div>
       <Header />
@@ -80,7 +80,7 @@ export default function CustomerProducts() {
         Ver Carrinho
       </button>
       <span data-testid={ `${CUSTOMER}__checkout-bottom-value` }>
-      {totalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+        {totalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
       </span>
 
     </div>

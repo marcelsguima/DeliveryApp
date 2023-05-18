@@ -22,4 +22,17 @@ const registerSale = async (userId, sellerId, totalPrice, deliveryAddress,
     return sale;
 };
 
-module.exports = {registerSale};
+const getSaleById = async (id) => {
+    try {
+      const sale = await Sale.findByPk(id);
+      return sale;
+    } catch (error) {
+      console.log(error);
+      throw new Error('Erro ao buscar a venda pelo ID');
+    }
+};
+
+module.exports = {
+  registerSale,
+  getSaleById,
+};

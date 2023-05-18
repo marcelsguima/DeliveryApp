@@ -10,7 +10,7 @@ function MyProvider({ children }) {
     const initialCartProducts = JSON.parse(localStorage.getItem('carrinho')) || [];
     return initialCartProducts.reduce((total, product) => total + parseFloat(product.price), 0);
   });
-  
+
   const magicNumber = -1;
   const history = useHistory();
 
@@ -39,8 +39,7 @@ function MyProvider({ children }) {
     setQuantities(newQuantities); // atualiza as quantidades
 
     // Guardando o valor total do carrinho
-      setTotalPrice(parseFloat(totalPrice - product.price));
-  
+    setTotalPrice(parseFloat(totalPrice - product.price));
 
     localStorage.setItem('carrinho', JSON.stringify(newCartProducts));
   };

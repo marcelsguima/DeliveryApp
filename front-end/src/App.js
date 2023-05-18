@@ -7,21 +7,23 @@ import Login from './pages/Login';
 import RegisterPage from './pages/RegisterPage';
 import MyProvider from './context/MyProvider';
 import CustomerCheckout from './pages/CustomerCheckout';
+import CustomerOrdersId from './pages/CustomerOrdersId';
 
 function App() {
   return (
 
     <MyProvider>
-    <Switch>
-      <Route exact path="/">
-        <Redirect to="/login" />
-      </Route>
-      <Route path="/login" component={ Login } />
-      <Route path="/register" component={ RegisterPage } />
-      <Route path="/customer/products" component={ CustomerProducts } />
-      <Route path="/customer/orders" component={ CostumerOrders } />
-      <Route path="/customer/checkout" component={ CustomerCheckout } />
-    </Switch>
+      <Switch>
+        <Route exact path="/">
+          <Redirect to="/login" />
+        </Route>
+        <Route path="/login" component={ Login } />
+        <Route path="/register" component={ RegisterPage } />
+        <Route path="/customer/products" component={ CustomerProducts } />
+        <Route path="/customer/orders" component={ CostumerOrders } />
+        <Route path="/customer/checkout" component={ CustomerCheckout } />
+        <Route path="/customer/orders/:id" component={ CustomerOrdersId } />
+      </Switch>
     </MyProvider>
   );
 }
