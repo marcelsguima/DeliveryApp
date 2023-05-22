@@ -1,17 +1,35 @@
-import React, { useContext } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import myContext from '../context/MyContext';
+import axios from 'axios';
+import Header from './Header';
+import AbstractTable from '../components/AbstractTable';
+import { requestSellers } from '../services/requests';
 
-function CustomerCheckout() {
-  const { totalPrice, handleRemoveFromCart } = useContext(myContext);
-  const carrinho = JSON.parse(localStorage.getItem('carrinho'));
+export default function CustomerCheckout() {
+  const [cart, setCart] = useState([]);
+  const [user, setUser] = useState('');
+  const [getSeller, setGetSeller] = useState([]);
+  const [deliveryAddress, setdAliveryAddress] = useState('');
+  const [deliveryNumber, setDeliveryNumber] = useState('');
+  const [getSellerId, setGetSellerId] = useState('');
+
+  const getSellers = async () => {
+    const data = await requestSellers('/sellers');
+    setGetSellerId(data[0].id);
+    setGetSeller(data);
+  };
+
   const history = useHistory();
+
+  const getStorageData = (storageName) => {
+    const data = JSON.parse(localStorage.getItem(storageName));
+    return data;
+  };
 
   const countProducts = () => {
     const countedProducts = {};
 
-    carrinho.forEach((item) => {
+    cart.forEach((item) => {
       const { id, name, price } = item;
 
       if (!countedProducts[id]) {
@@ -21,6 +39,7 @@ function CustomerCheckout() {
           quantity: 1,
           price,
           subtotal: price,
+
         };
       } else {
         countedProducts[id].quantity += 1;
@@ -31,12 +50,24 @@ function CustomerCheckout() {
     return Object.values(countedProducts);
   };
 
+  const totalPrice = () => {
+    const text = cart.reduce(
+      (acc, curr) => acc + curr.quantity * curr.price,
+      0,
+    );
+    return text.toFixed(2).replace('.', ',');
+  };
+  const saleDate = new Date();
+
   const handleCheckout = () => {
     const dataSale = {
-      status: 'Pendente',
+      getSellerId,
+      totalPrice: Number(totalPrice().replace(',', '.')),
+      deliveryAddress,
+      deliveryNumber,
+      saleDate,
       products: countProducts(),
     };
-
     axios.post('http://localhost:3001/customer/checkout', dataSale).then((response) => {
       console.log('sale: ', response.data);
       const saleId = response.data.id;
@@ -49,48 +80,91 @@ function CustomerCheckout() {
     });
   };
 
+  const deleteItem = (itemId) => {
+    const result = cart.filter((item) => item.id !== itemId);
+    localStorage.setItem('carrinho', JSON.stringify([...result]));
+    setCart(getStorageData('carrinho'));
+  };
+
+  useEffect(() => {
+    setUser(getStorageData('user'));
+  }, []);
+
+  useEffect(() => {
+    setCart(getStorageData('carrinho'));
+    getSellers();
+
+    return () => {
+      setCart([]);
+    };
+  }, [user]);
+
   return (
     <div>
-      <table>
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Descrição</th>
-            <th>Quantidade</th>
-            <th>Valor Unitário</th>
-            <th>Sub-total</th>
-            <th>Remover Item</th>
-          </tr>
-        </thead>
-        <tbody>
-          {countProducts().map((product) => (
-            <tr key={ product.id }>
-              <td>{product.id}</td>
-              <td>{product.name}</td>
-              <td>{product.quantity}</td>
-              <td>
-                R$
-                {product.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-              </td>
-              <td>
-                R$
-                {(Number(product.subtotal)).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-              </td>
-              <td>
-                <button onClick={ () => handleRemoveFromCart(product) }>
-                  Remover
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <span>
-        Total: R$
-        {totalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-      </span>
-
-      <button onClick={ handleCheckout }>Finalizar pedido</button>
+      <Header />
+      <div>
+        <h2>Finalizar Pedido</h2>
+        <AbstractTable
+          valuesTable={ cart }
+          deleteItem={ deleteItem }
+        />
+        <h1>
+          Total: R$
+          {' '}
+          <span data-testid="customer_checkout__element-order-total-price">
+            {totalPrice()}
+          </span>
+        </h1>
+      </div>
+      <h2>Detalhes e Endereço para Entrega</h2>
+      <div>
+        <div>
+          <label htmlFor="sellers">
+            P. Vendedora Responsável
+            <select
+              id="sellers"
+              data-testid="customer_checkout__select-seller"
+              onChange={ ({ target }) => { setGetSellerId(target.value); } }
+            >
+              {getSeller.map((sellerAvaible) => (
+                <option
+                  key={ sellerAvaible.id }
+                  value={ sellerAvaible.id }
+                >
+                  {sellerAvaible.name}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label htmlFor="adress">
+            Endereço
+            <input
+              id="adress"
+              type="text"
+              data-testid="customer_checkout__input-address"
+              value={ deliveryAddress }
+              onChange={ ({ target }) => setdAliveryAddress(target.value) }
+            />
+          </label>
+          <label htmlFor="adress-number">
+            Número
+            <input
+              id="adress-number"
+              type="text"
+              data-testid="customer_checkout__input-address-number"
+              value={ deliveryNumber }
+              onChange={ ({ target }) => setDeliveryNumber(target.value) }
+            />
+          </label>
+        </div>
+      </div>
+      <button
+        type="button"
+        data-testid="customer_checkout__button-submit-order"
+        onClick={ handleCheckout }
+      >
+        Finalizar Pedido
+      </button>
     </div>
   );
 }

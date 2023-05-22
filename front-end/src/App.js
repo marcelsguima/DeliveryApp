@@ -1,17 +1,15 @@
+import { Switch, Route, Redirect } from 'react-router-dom';
 import React from 'react';
 import './App.css';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import CustomerProducts from './pages/CustomerProducts';
-import CostumerOrders from './pages/CustomerOrders';
+import MyProvider from './context/MyProvider';
 import Login from './pages/Login';
 import RegisterPage from './pages/RegisterPage';
-import MyProvider from './context/MyProvider';
+import CustomerProducts from './pages/CustomerProducts';
 import CustomerCheckout from './pages/CustomerCheckout';
-import CustomerOrdersId from './pages/CustomerOrdersId';
+import CostumerOrders from './pages/CustomerOrders';
 
 function App() {
   return (
-
     <MyProvider>
       <Switch>
         <Route exact path="/">
@@ -22,7 +20,6 @@ function App() {
         <Route path="/customer/products" component={ CustomerProducts } />
         <Route path="/customer/orders" component={ CostumerOrders } />
         <Route path="/customer/checkout" component={ CustomerCheckout } />
-        <Route path="/customer/orders/:id" component={ CustomerOrdersId } />
       </Switch>
     </MyProvider>
   );

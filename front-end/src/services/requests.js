@@ -19,4 +19,18 @@ export const requestProducts = async (endpoint) => {
   return data;
 };
 
+export const requestSellers = async (endpoint) => {
+  const { data } = await api.get(endpoint);
+  return data;
+};
+
+export const requestCheckout = async (endpoint, body) => {
+  const { data } = await api.post(endpoint, body);
+  return data;
+};
+
+export const setToken = (token) => {
+  api.defaults.headers.common.Authorization = token;
+};
+
 export default api;
