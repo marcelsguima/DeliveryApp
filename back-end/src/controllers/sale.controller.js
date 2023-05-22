@@ -2,8 +2,10 @@ const saleService = require('../services/sale.service');
 const { Sale } = require('../database/models');
 
 const registerSale = async(req, res) => {
+  console.log(req.body);
+  const { id } = req.payload;
+
     const { 
-     userId,
      sellerId,
      totalPrice,
      deliveryAddress,
@@ -17,8 +19,9 @@ const registerSale = async(req, res) => {
   if (isNaN(saleDateFormatted.getTime())) {
     return res.status(400).json({ message: 'Data de venda inválida' });
   }
-
-    const newSale = await saleService.registerSale(userId,
+  
+    const newSale = await saleService.registerSale(
+        id,
         sellerId,
         totalPrice,
         deliveryAddress,
@@ -27,6 +30,7 @@ const registerSale = async(req, res) => {
         products,
         )
 
+        console.log(newSale);
     if (newSale) {
         return res.status(201).json(newSale)
     }

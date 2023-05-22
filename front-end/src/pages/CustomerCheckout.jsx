@@ -61,13 +61,14 @@ export default function CustomerCheckout() {
 
   const handleCheckout = () => {
     const dataSale = {
-      getSellerId,
+      sellerId: getSellerId,
       totalPrice: Number(totalPrice().replace(',', '.')),
       deliveryAddress,
       deliveryNumber,
       saleDate,
       products: countProducts(),
     };
+
     axios.post('http://localhost:3001/customer/checkout', dataSale).then((response) => {
       console.log('sale: ', response.data);
       const saleId = response.data.id;

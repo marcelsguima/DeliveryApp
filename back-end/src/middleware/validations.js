@@ -1,5 +1,7 @@
 const Joi = require('joi');
 const jwt = require('jsonwebtoken');
+const path = require('path');
+const fs = require('fs');
 
 const registerUserSchema = Joi.object({
   displayName: Joi.string().min(8).required(),
@@ -15,11 +17,14 @@ const createRegister = Joi.object({
   role: Joi.string().required(),
 });
 
-const secret = process.env.JWT_SECRET || 'valor padrão';
+const JWT_SECRET = path.resolve(__dirname, '../../jwt.evaluation.key');
+// const secret = process.env.JWT_SECRET || 'valor padrão';
+const secret = fs.readFileSync(JWT_SECRET, 'utf8').trim();
 
 const tokenValidation = (req, res, next) => {
   try {
-    const authorization = req.header('Authorization');
+    const { authorization } = req.headers;
+    console.log(authorization);
     if (!authorization) {
       return res.status(401).json({ message: 'Token not found' });
     }
