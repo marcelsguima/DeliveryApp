@@ -94,5 +94,3 @@ function CustomerCheckout() {
     </div>
   );
 }
-
-export default CustomerCheckout;
