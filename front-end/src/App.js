@@ -11,15 +11,15 @@ function App() {
   return (
 
     <MyProvider>
-    <Switch>
-      <Route exact path="/">
-        <Redirect to="/login" />
-      </Route>
-      <Route path="/login" component={ Login } />
-      <Route path="/register" component={ RegisterPage } />
-      <Route path="/customer/products" component={ CustomerProducts } />
-      <Route path="/customer/orders" component={ CostumerOrders } />
-    </Switch>
+      <Switch>
+        <Route exact path="/">
+          <Redirect to="/login" />
+        </Route>
+        <Route path="/login" component={ Login } />
+        <Route path="/register" component={ RegisterPage } />
+        <Route path="/customer/products" component={ CustomerProducts } />
+        <Route path="/customer/orders" component={ CostumerOrders } />
+      </Switch>
     </MyProvider>
   );
 }
