@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default function AbstractTable({ valuesTable, deleteItem }) {
+  const CHECKOUT = 'customer_checkout';
+
   return (
     <table>
       <thead>
@@ -19,23 +21,25 @@ export default function AbstractTable({ valuesTable, deleteItem }) {
           <tr
             key={ itemCarts.id }
           >
-            <td data-testid={ `customer__element-order-table-item-number-${index}` }>
+            <td
+              data-testid={ `${CHECKOUT}__element-order-table-item-number-${index}` }
+            >
               {index + 1}
             </td>
             <td
-              data-testid={ `customer__element-order-table-name-${index}` }
+              data-testid={ `${CHECKOUT}__element-order-table-name-${index}` }
             >
               {itemCarts.name}
             </td>
             <td
-              data-testid={ `customer__element-order-table-quantity-${index}` }
+              data-testid={ `${CHECKOUT}__element-order-table-quantity-${index}` }
             >
               {itemCarts.quantity}
             </td>
             <td>
               <span
                 data-testid={
-                  `customer__element-order-table-unit-price-${index}`
+                  `customer_checkout__element-order-table-unit-price-${index}`
                 }
               >
                 {`R$ ${(itemCarts.price)
@@ -46,7 +50,7 @@ export default function AbstractTable({ valuesTable, deleteItem }) {
             <td>
               <span
                 data-testid={
-                  `customer__element-order-table-sub-total-${index}`
+                  `customer_checkout__element-order-table-sub-total-${index}`
                 }
               >
                 {`R$ ${(itemCarts.price * itemCarts.quantity)
@@ -59,7 +63,7 @@ export default function AbstractTable({ valuesTable, deleteItem }) {
               <button
                 name={ itemCarts.id }
                 type="button"
-                data-testid={ `customer__element-order-table-remove-${index}` }
+                data-testid={ `${CHECKOUT}__element-order-table-remove-${index}` }
                 onClick={ ({ target }) => deleteItem(Number(target.name)) }
               >
                 Excluir
