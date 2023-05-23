@@ -9,7 +9,6 @@ import MyProvider from './context/MyProvider';
 
 function App() {
   return (
-
     <MyProvider>
       <Switch>
         <Route exact path="/">
