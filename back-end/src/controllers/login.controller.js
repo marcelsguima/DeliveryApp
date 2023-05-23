@@ -10,8 +10,9 @@ const createUser = async (req, res) => {
     return res.status(400).json({ message: 'Some required fields are missing' }); 
   }
   const newUser = await loginService.login(email, password);
+  console.log(newUser);
   if (!newUser) {
-    return res.status(404).json({ message: 'Invalid fields' });
+    return res.status(404).json({ message: 'User not found' });
   }
   const toToken = newUser.dataValues;
   const token = generateToken(toToken);
