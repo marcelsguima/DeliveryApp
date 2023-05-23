@@ -21,7 +21,7 @@ export default function RegisterPage() {
 
   const isPasswordValid = register.password.length >= minPasswordLength;
   const isEmailValid = emailRegex.test(register.email);
-  const isNameValid = register.name.trim().length > minNameLength;
+  const isNameValid = register.name.trim().length >= minNameLength;
 
   const credentValid = (isPasswordValid && isEmailValid && isNameValid);
 
