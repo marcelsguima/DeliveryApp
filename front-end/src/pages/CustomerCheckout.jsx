@@ -69,7 +69,12 @@ export default function CustomerCheckout() {
       products: countProducts(),
     };
 
-    axios.post('http://localhost:3001/customer/checkout', dataSale).then((response) => {
+    axios.post('http://localhost:3001/customer/checkout', dataSale, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': JSON.parse(localStorage.getItem('user')).token
+      }
+    }).then((response) => {
       console.log('sale: ', response.data);
       const saleId = response.data.id;
 
@@ -78,6 +83,8 @@ export default function CustomerCheckout() {
       history.push(`/customer/orders/${saleId}`);
     }).catch((err) => {
       console.log('deu erro', err);
+      const token = JSON.parse(localStorage.getItem('user')).token;
+      console.log(token);
     });
   };
 
