@@ -68,23 +68,14 @@ export default function CustomerCheckout() {
       saleDate,
       products: countProducts(),
     };
-
-    axios.post('http://localhost:3001/customer/checkout', dataSale, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': JSON.parse(localStorage.getItem('user')).token
-      }
-    }).then((response) => {
-      console.log('sale: ', response.data);
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    const authorization = { headers: { Authorization: token } };
+    axios.post('http://localhost:3001/customer/checkout', dataSale, authorization).then((response) => {
       const saleId = response.data.id;
-
       localStorage.removeItem('carrinho');
-
       history.push(`/customer/orders/${saleId}`);
     }).catch((err) => {
       console.log('deu erro', err);
-      const token = JSON.parse(localStorage.getItem('user')).token;
-      console.log(token);
     });
   };
 

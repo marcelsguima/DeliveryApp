@@ -19,12 +19,11 @@ const createRegister = Joi.object({
 
 const JWT_SECRET = path.resolve(__dirname, '../../jwt.evaluation.key');
 // const secret = process.env.JWT_SECRET || 'valor padrão';
-const secret = fs.readFileSync(JWT_SECRET, 'utf8').trim();
+const secret = fs.readFileSync(JWT_SECRET, 'utf8');
 
 const tokenValidation = (req, res, next) => {
   try {
     const { authorization } = req.headers;
-    console.log(authorization);
     if (!authorization) {
       return res.status(401).json({ message: 'Token not found' });
     }
